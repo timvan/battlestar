@@ -14,7 +14,7 @@ class Vector2D {
 	}
 
 	static Vector2D add(Vector2D v1, Vector2D v2) {
-		Vector2D v3 = new Vector2D (v1.x + v2.x, v1.y + v2.y);
+		Vector2D v3 = new Vector2D(v1.x + v2.x, v1.y + v2.y);
 		return v3;
 	}
 
@@ -24,7 +24,7 @@ class Vector2D {
 	}
 
 	static Vector2D sub(Vector2D v1, Vector2D v2) {
-		Vector2D v3 = new Vector2D (v1.x - v2.x, v1.y - v2.y);
+		Vector2D v3 = new Vector2D(v1.x - v2.x, v1.y - v2.y);
 		return v3;
 	}
 
@@ -34,7 +34,7 @@ class Vector2D {
 	}
 
 	static Vector2D mult(Vector2D v1, double n) {
-		Vector2D v2 = new Vector2D (v1.x * n, v1.y * n);
+		Vector2D v2 = new Vector2D(v1.x * n, v1.y * n);
 		return v2;
 	}
 
@@ -71,6 +71,12 @@ class Vector2D {
 			div(m);
 		}
 	}
+	
+	Vector2D normal() {
+		Vector2D v2 = new Vector2D(x, y);
+		v2.normalise();
+		return v2;
+	}
 
 	void limit(double max) {
 		if(mag() > max) {
@@ -81,7 +87,7 @@ class Vector2D {
 
 	double heading() {
 		/* Converts cart coords to polar, returns degree in RADIANS*/
-		return Math.atan2(x, y);
+		return Math.atan2(y, x);
 	}
 
 
@@ -113,6 +119,7 @@ class Vector2D {
 		testMag();
 		testSetMag();
 		testNomalise();
+		testNormal();
 		testLimt();
 		testHeading();
 		testRandom2D();
@@ -193,6 +200,13 @@ class Vector2D {
 		assert(p.y == 1);
 	}
 
+	private void testNormal() {
+		Vector2D p = new Vector2D(0, 5);
+		assert(p.normal().x == 0);
+		assert(p.normal().y == 1);
+
+	}
+
 	private void testLimt() {
 		Vector2D p = new Vector2D(0, 10);
 		p.limit(8);
@@ -203,6 +217,8 @@ class Vector2D {
 	private void testHeading() {
 		Vector2D p = new Vector2D(1 , 1);
 		assert(p.heading() == Math.PI / 4);
+		p = new Vector2D(1 , 0);
+		assert(p.heading() == 0);
 	}
 
 	private void testRandom2D() {
